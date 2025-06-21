@@ -184,8 +184,19 @@ export default function Provider({ children }) {
 
 async function getBulkPairData(pairList, ethPrice) {
   const [t1, t2, tWeek] = getTimestampsForChanges()
-  let [{ number: b1 }, { number: b2 }, { number: bWeek }] = await getBlocksFromTimestamps([t1, t2, tWeek])
+  let blocks = [0, 0, 0] // 默认值
+  try {
+    const blockResults = await getBlocksFromTimestamps([t1, t2, tWeek]) || []
+    blocks = [
+      blockResults[0]?.number || 0,
+      blockResults[1]?.number || 0,
+      blockResults[2]?.number || 0
+    ]
+  } catch(e) {
+    console.error('Error getting blocks:', e)
+  }
 
+  const [b1, b2, bWeek] = blocks
   try {
     let current = await client.query({
       query: PAIRS_BULK,

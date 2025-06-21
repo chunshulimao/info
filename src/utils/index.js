@@ -40,28 +40,20 @@ export function getTimeframe(timeWindow) {
 export function getPoolLink(token0Address, token1Address = null, remove = false) {
   if (!token1Address) {
     return (
-      `https://app.uniswap.org/#/` +
-      (remove ? `remove` : `add`) +
-      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${'ETH'}`
+      `https://daoaas.io/liquidity`
     )
   } else {
     return (
-      `https://app.uniswap.org/#/` +
-      (remove ? `remove` : `add`) +
-      `/v2/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${
-        token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
-      }`
+      `https://daoaas.io/liquidity`
     )
   }
 }
 
 export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
-    return `https://app.uniswap.org/#/swap?inputCurrency=${token0Address}`
+    return `https://daoaas.io/swap`
   } else {
-    return `https://app.uniswap.org/#/swap?inputCurrency=${
-      token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address
-    }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address}`
+    return `https://daoaas.io/swap`
   }
 }
 
@@ -108,9 +100,11 @@ export const toWeeklyDate = (date) => {
 
 export function getTimestampsForChanges() {
   const utcCurrentTime = dayjs()
+  console.log(utcCurrentTime)
   const t1 = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
   const t2 = utcCurrentTime.subtract(2, 'day').startOf('minute').unix()
   const tWeek = utcCurrentTime.subtract(1, 'week').startOf('minute').unix()
+  console.log(t1, t2, tWeek)
   return [t1, t2, tWeek]
 }
 
@@ -303,10 +297,10 @@ export const setThemeColor = (theme) => document.documentElement.style.setProper
 export const Big = (number) => new BigNumber(number)
 
 export const urls = {
-  showTransaction: (tx) => `https://etherscan.io/tx/${tx}/`,
+  showTransaction: (tx) => `https://scan.eniac.network/tx/${tx}/`,
   showAddress: (address) => `https://www.etherscan.io/address/${address}/`,
   showToken: (address) => `https://www.etherscan.io/token/${address}/`,
-  showBlock: (block) => `https://etherscan.io/block/${block}/`,
+  showBlock: (block) => `https://scan.eniac.network/block/${block}/`,
 }
 
 export const formatTime = (unix) => {
@@ -367,8 +361,8 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
     return 0
   }
 
-  if (num < 0.0001 && num > 0) {
-    return usd ? '< $0.0001' : '< 0.0001'
+  if (num < 0.000000001 && num > 0) {
+    return usd ? '< $0.000000001' : '< 0.000000001'
   }
 
   if (num > 1000) {
@@ -377,13 +371,13 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
 
   if (usd) {
     if (num < 0.1) {
-      return formatDollarAmount(num, 4)
+      return formatDollarAmount(num, 8)
     } else {
       return formatDollarAmount(num, 2)
     }
   }
 
-  return Number(parseFloat(num).toFixed(4)).toString()
+  return Number(parseFloat(num).toFixed(8)).toString()
 }
 
 export function rawPercent(percentRaw) {
