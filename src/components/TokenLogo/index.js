@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { isAddress } from '../../utils/index.js'
+import { isAddress, toLowAddress } from '../../utils/index.js'
 import EthereumLogo from '../../assets/eth.png'
 
 const BAD_IMAGES = {}
@@ -71,9 +71,9 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
     )
   }
 
-  const path = ` https://static-rsc-eni.s3.ap-northeast-1.amazonaws.com/coin/${isAddress(
+  const path = `https://static.daoaas.io/coins/eni/${toLowAddress(
     address
-  )}/logo.png`
+  )}.png`
 
   return (
     <Inline>

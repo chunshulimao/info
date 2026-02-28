@@ -2,15 +2,15 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { shade } from 'polished'
 import Vibrant from 'node-vibrant'
 import { hex } from 'wcag-contrast'
-import { isAddress } from '../utils'
+import { isAddress, toLowAddress } from '../utils'
 import copy from 'copy-to-clipboard'
 
 export function useColor(tokenAddress, token) {
   const [color, setColor] = useState('#2172E5')
   if (tokenAddress) {
-    const path = ` https://static-rsc-eni.s3.ap-northeast-1.amazonaws.com/coin/${isAddress(
+    const path = `https://static.daoaas.io/coins/eni/${toLowAddress(
       tokenAddress
-    )}/logo.png`
+    )}.png`
     if (path) {
       Vibrant.from(path).getPalette((err, palette) => {
         if (palette && palette.Vibrant) {

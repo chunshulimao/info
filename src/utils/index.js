@@ -287,7 +287,13 @@ export const isAddress = (value) => {
     return false
   }
 }
-
+export const toLowAddress = (value) => {
+  try {
+    return ethers.utils.getAddress(value.toLowerCase()).toLowerCase()
+  } catch {
+    return false
+  }
+}
 export const toK = (num) => {
   return Numeral(num).format('0.[00]a')
 }
