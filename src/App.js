@@ -78,7 +78,7 @@ const WarningBanner = styled.div`
   font-weight: 500;
 `
 
-const UrlBanner = styled.div`
+const InfoBanner = styled.div`
   background-color: #ff007a;
   padding: 1rem;
   color: white;
@@ -87,8 +87,14 @@ const UrlBanner = styled.div`
   font-weight: 500;
 `
 
-const Decorator = styled.span`
+const BannerLink = styled(Link)`
+  color: white;
   text-decoration: underline;
+  font-weight: 700;
+
+  &:hover {
+    opacity: 0.85;
+  }
 `
 
 /**
@@ -124,6 +130,15 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AppWrapper>
+        <BannerWrapper>
+          <InfoBanner>
+            INFO currently supports V2 only. For V3 data, please visit{' '}
+            <BannerLink external href="https://infov3.daoaas.io">
+              https://infov3.daoaas.io
+            </BannerLink>
+            .
+          </InfoBanner>
+        </BannerWrapper>
         {showWarning && (
           <BannerWrapper>
             <WarningBanner>

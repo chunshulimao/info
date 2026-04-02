@@ -147,7 +147,7 @@ function SideNav({ history }) {
                   </Option>
                 </BasicLink>
 
-             {/*   <BasicLink to="/accounts">
+                {/*   <BasicLink to="/accounts">
                   <Option
                     activeText={
                       (history.location.pathname.split('/')[1] === 'accounts' ||
@@ -165,7 +165,7 @@ function SideNav({ history }) {
           <AutoColumn gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem' }}>
             <HeaderText>
               <Link href="https://daoaas.io/swap" target="_blank">
-                DAOAAS SWAP
+                DSWAP
               </Link>
             </HeaderText>
             <HeaderText>
